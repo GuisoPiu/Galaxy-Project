@@ -1,26 +1,27 @@
 from kivy.app import App
-from kivy.uix.widget import  Widget
+from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty
-from kivy.graphics import Color
-from kivy.graphics.vertex_instructions import Line
+from kivy.graphics import Color, Line
+
+# from kivy.graphics.vertex_instructions import Line
 
 
 class MainWidget(Widget):
     perspective_point_x = NumericProperty(0)
     perspective_point_y = NumericProperty(0)
 
-    V_NB_LINES = 7 # it has to be an odd number to have same 
-                   # num of lines right and left of center.
+    V_NB_LINES = 7  # it has to be an odd number to have same
+    # num of lines right and left of center.
     V_LINES_SPACING = .1 # percentage in screen width
     vertical_lines = [] # empty array
 
     def __init__(self, **kwargs):
         super(MainWidget, self).__init__(**kwargs)
-        #print("INIT W: " + str(self.width) + " H: " + str(self.height))
+        # print("INIT W: " + str(self.width) + " H: " + str(self.height))
         self.init_vertical_lines()
 
     def on_parent(self, widget, parent):
-        #print(" ON PARENT W: " + str(self.width) + " H: " + str(self.height))
+        # print(" ON PARENT W: " + str(self.width) + " H: " + str(self.height))
         pass
 
     def on_size(self, *args):
