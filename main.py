@@ -71,7 +71,7 @@ class MainWidget(Widget):
 
         diff_x = x - self.perspective_point_x
         diff_y = self.perspective_point_y - tr_y
-        proportion_y = diff_y / self.perspective_point_y # 1 when diff_y == self.height and 0 when diff_y == perspective_point_y
+        proportion_y = diff_y / self.perspective_point_y  # 1 when diff_y == self.height and 0 when diff_y == perspective_point_y
 
         tr_x = self.perspective_point_x + diff_x * proportion_y
 
