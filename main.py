@@ -1,3 +1,7 @@
+from kivy.config import Config
+Config.set('graphics', 'width', '900')
+Config.set('graphics', 'height', '400')
+
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, Clock
@@ -10,7 +14,7 @@ class MainWidget(Widget):
     perspective_point_x = NumericProperty(0)
     perspective_point_y = NumericProperty(0)
 
-    V_NB_LINES = 4
+    V_NB_LINES = 10
     # num of lines right and left of center.
     V_LINES_SPACING = .1  # percentage in screen width
     vertical_lines = []  # empty array
@@ -20,7 +24,10 @@ class MainWidget(Widget):
     horizontal_lines = []
 
     current_offset_y = 0
-    SPEED = 2
+    SPEED = 1
+
+    current_offset_x = 0
+    SPEED_X = 1
 
     def __init__(self, **kwargs):
         super(MainWidget, self).__init__(**kwargs)
@@ -61,7 +68,7 @@ class MainWidget(Widget):
         spacing = self.V_LINES_SPACING * self.width
         offset = -int(self.V_NB_LINES/2) + 0.5
         for i in range(0, self.V_NB_LINES):
-            line_x = int(central_line_x + offset*spacing)
+            line_x = central_line_x + offset*spacing + self.current_offset_x
 
             x1, y1 = self.transform(line_x, 0)
             x2, y2 = self.transform(line_x, self.height)
@@ -79,8 +86,8 @@ class MainWidget(Widget):
         spacing = self.V_LINES_SPACING * self.width
         offset = -int(self.V_NB_LINES/2) + 0.5
 
-        xmin = central_line_x + offset * spacing
-        xmax = central_line_x - offset * spacing
+        xmin = central_line_x + offset * spacing + self.current_offset_x
+        xmax = central_line_x - offset * spacing + self.current_offset_x
         spacing_y = self.H_LINES_SPACING*self.height
 
         for i in range(0, self.H_NB_LINES):
@@ -121,6 +128,8 @@ class MainWidget(Widget):
         spacing_y = self.H_LINES_SPACING * self.height
         if self.current_offset_y >= spacing_y:
             self.current_offset_y -= spacing_y
+
+        self.current_offset_x += self.SPEED_X * time_factor
 
 class GalaxyApp(App):
     pass
